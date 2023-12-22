@@ -1,5 +1,29 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({});
+import { handleSaveError, preUpdate } from "./hook.js";
+import { emailRegexp } from "../schema/user-schema.js";
 
-// export default User;
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      match: emailRegexp,
+      unique: true,
+      require: true,
+    },
+    password: {
+      type: String,
+      minLength: 8,
+      require: true,
+    },
+  },
+  { versionKey: false }
+);
+
+userSchema.post("save", handleSaveError);
+userSchema.pre("findOneAndUpdate", preUpdate);
+userSchema.post("findOneAndUpdate", handleSaveError);
+
+const User = model("user", userSchema);
+
+export default User;
