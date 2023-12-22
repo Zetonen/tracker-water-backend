@@ -5,6 +5,10 @@ import { emailRegexp } from "../schema/user-schema.js";
 
 const userSchema = new Schema(
   {
+    username: {
+      type: String,
+      default: "V",
+    },
     email: {
       type: String,
       match: emailRegexp,
@@ -15,6 +19,10 @@ const userSchema = new Schema(
       type: String,
       minLength: 8,
       require: true,
+    },
+    token: {
+      type: String,
+      default: "",
     },
   },
   { versionKey: false }
