@@ -25,4 +25,13 @@ usersRouter.post(
 
 usersRouter.post("/logout", authenticate, usersService.logout);
 
+usersRouter.get("/getInfo", authenticate, usersService.getInfo);
+
+usersRouter.put(
+  "/changeInfo",
+  authenticate,
+  isEmptyBody,
+  usersService.changeInfo
+);
+
 export default usersRouter;
