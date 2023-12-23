@@ -9,11 +9,13 @@ const { JWT_SECRET } = process.env;
 const signin = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  const comparedPassword = await bcrypt.compare(password, user.password);
-  if (!user || !comparedPassword) {
+  if (!user) {
     throw HttpError(401, "Email or password invalid!");
   }
-
+  const comparedPassword = await bcrypt.compare(password, user.password);
+  if (!comparedPassword) {
+    throw HttpError(401, "Email or password invalid!");
+  }
   const payload = {
     id: user._id,
   };
