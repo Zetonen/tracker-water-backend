@@ -12,20 +12,19 @@ const userSchema = new Schema(
     email: {
       type: String,
       match: emailRegexp,
+      required: [true, "The email is required!"],
       unique: true,
-      require: true,
     },
     password: {
       type: String,
+      required: [true, "The password is required!"],
       minLength: 8,
-      require: true,
     },
     token: {
       type: String,
-      default: "",
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 userSchema.post("save", handleSaveError);

@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../../model/User.js";
-import HttpError from "../../helpers/HttpError.js";
+import { HttpError } from "../../helpers/index.js";
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -13,7 +13,6 @@ const signup = async (req, res) => {
 
   res.status(201).json({
     user: {
-      username: newUser.username,
       email: newUser.email,
     },
   });

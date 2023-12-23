@@ -1,6 +1,6 @@
 import express from "express";
 import usersService from "../../controllers/user-controllers.js";
-import validaterBody from "../../decorators/validateBody.js";
+import { validateBody } from "../../decorators/index.js";
 import { isEmptyBody, authenticate } from "../../middlewares/index.js";
 import {
   userSigninSchema,
@@ -12,14 +12,14 @@ const usersRouter = express.Router();
 usersRouter.post(
   "/signup",
   isEmptyBody,
-  validaterBody(userSignupSchema),
+  validateBody(userSignupSchema),
   usersService.signup
 );
 
 usersRouter.post(
   "/signin",
   isEmptyBody,
-  validaterBody(userSigninSchema),
+  validateBody(userSigninSchema),
   usersService.signin
 );
 
