@@ -30,4 +30,10 @@ waterTrackRouter.put(
   waterTrackControllers.updateWaterById
 );
 
+waterTrackRouter.delete(
+  "/:waterId",
+  isValidId,
+  waterTrackControllers.deleteWaterById
+);
+
 export default waterTrackRouter;
