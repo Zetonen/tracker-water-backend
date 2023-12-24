@@ -1,11 +1,16 @@
 import express from "express";
 import usersService from "../../controllers/user-controllers.js";
 import { validateBody } from "../../decorators/index.js";
-import { isEmptyBody, authenticate } from "../../middlewares/index.js";
+import {
+  isEmptyBody,
+  authenticate,
+  uploadAvatar,
+} from "../../middlewares/index.js";
 import {
   userSigninSchema,
   userSignupSchema,
   changeUserSchema,
+  userAvatarsSchema,
 } from "../../schema/user-schema.js";
 
 const usersRouter = express.Router();
@@ -34,6 +39,14 @@ usersRouter.put(
   isEmptyBody,
   validateBody(changeUserSchema),
   usersService.changeInfo
+);
+
+usersRouter.patch(
+  "/addAvatar",
+  authenticate,
+  uploadAvatar.single("avatar"),
+  validateBody(userAvatarsSchema),
+  usersService.addAvatar
 );
 
 export default usersRouter;

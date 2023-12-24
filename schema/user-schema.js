@@ -11,6 +11,10 @@ export const changeUserSchema = Joi.object({
   dailyNorma: Joi.number().min(0),
 });
 
+export const userAvatarsSchema = Joi.object({
+  avatarURL: Joi.string(),
+});
+
 export const userSignupSchema = Joi.object({
   email: Joi.string()
     .pattern(emailRegexp)

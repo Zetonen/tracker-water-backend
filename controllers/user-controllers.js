@@ -7,4 +7,5 @@ export default {
   logout: ctrlWrapper(usersService.logout),
   getInfo: ctrlWrapper(usersService.getInfo),
   changeInfo: ctrlWrapper(usersService.changeInfo),
+  addAvatar: ctrlWrapper(usersService.addAvatar),
 };
