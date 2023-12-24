@@ -7,6 +7,7 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
+      maxLength: 32,
       default: "V",
     },
     email: {
@@ -19,6 +20,23 @@ const userSchema = new Schema(
       type: String,
       required: [true, "The password is required!"],
       minLength: 8,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+      default: "male",
+    },
+    dailyNorma: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+    oldPassword: {
+      type: String,
+      minLength: 8,
+    },
+    avatarURL: {
+      type: String,
     },
     token: {
       type: String,
