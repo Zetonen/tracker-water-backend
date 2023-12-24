@@ -5,6 +5,7 @@ import { isEmptyBody, authenticate } from "../../middlewares/index.js";
 import {
   userSigninSchema,
   userSignupSchema,
+  changeUserSchema,
 } from "../../schema/user-schema.js";
 
 const usersRouter = express.Router();
@@ -31,6 +32,7 @@ usersRouter.put(
   "/changeInfo",
   authenticate,
   isEmptyBody,
+  validateBody(changeUserSchema),
   usersService.changeInfo
 );
 

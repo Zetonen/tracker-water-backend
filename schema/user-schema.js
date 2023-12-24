@@ -2,6 +2,15 @@ import Joi from "joi";
 
 export const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+export const changeUserSchema = Joi.object({
+  username: Joi.string().max(32),
+  email: Joi.string().pattern(emailRegexp),
+  password: Joi.string().min(8).max(48),
+  oldPassword: Joi.string().min(8).max(48),
+  gender: Joi.string().valid(...["male", "female"]),
+  dailyNorma: Joi.number().min(0),
+});
+
 export const userSignupSchema = Joi.object({
   email: Joi.string()
     .pattern(emailRegexp)
