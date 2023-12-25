@@ -29,6 +29,7 @@ const userSchema = new Schema(
     dailyNorma: {
       type: Number,
       min: 0,
+      set: (v) => v.toFixed(2),
       default: 2,
     },
     oldPassword: {

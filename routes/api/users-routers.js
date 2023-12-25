@@ -33,7 +33,7 @@ usersRouter.post("/logout", authenticate, usersService.logout);
 
 usersRouter.get("/getInfo", authenticate, usersService.getInfo);
 
-usersRouter.put(
+usersRouter.patch(
   "/changeInfo",
   authenticate,
   isEmptyBody,
