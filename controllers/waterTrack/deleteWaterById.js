@@ -7,7 +7,7 @@ const deleteWaterById = async (req, res) => {
 
   const result = await WaterTrack.findByIdAndDelete({ _id: waterId, owner });
   if (!result) {
-    throw HttpError(404, `Water track with id = ${waterId} is found`);
+    throw HttpError(404, `Water track with id = ${waterId} is not found`);
   }
   res.json({ message: "Water track deleted" });
 };
