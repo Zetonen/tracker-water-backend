@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.2",
+    "title": "Swagger test",
+    "description": "Showing off swagger-ui-express",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
+  "servers": [{ "url": "http://localhost:4000" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password invalid!",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/getInfo": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User get all info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "getInfo's object",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/changeInfo": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User change info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "changeInfo's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found/Password invalid!",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/addAvatar": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User add avatar",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "addAvatar's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddAvatarResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Image not found",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "ChangeInfoRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Vova"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "oldPassword": {
+            "type": "string",
+            "description": "User's old password",
+            "example": "qwerty1"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's old password",
+            "example": "qwerty2"
+          },
+          "gender": {
+            "type": "string",
+            "description": "User's gender",
+            "example": "female"
+          },
+          "dailyNorma": {
+            "type": "number",
+            "description": "User's daily water norma",
+            "example": 5
+          }
+        }
+      },
+      "AddAvatarRequest": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
+          }
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              }
+            }
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "User's token",
+            "example": "Logout success!"
+          }
+        }
+      },
+      "GetInfoResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "User's name",
+            "example": "V"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "gender": {
+            "type": "string",
+            "description": "User's gender",
+            "example": "male"
+          },
+          "dailyNorma": {
+            "type": "number",
+            "description": "User's daily water norma",
+            "example": 2
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatarURL",
+            "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
+          }
+        }
+      },
+      "ChangeInfoResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Vova"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2a$10$oMRe2.Vxu3MUb1fTN/tCX.m4Q7G1B7AGU/ETwRasTBLHgJrTGPCyi"
+          },
+          "gender": {
+            "type": "string",
+            "description": "User's gender",
+            "example": "female"
+          },
+          "dailyNorma": {
+            "type": "number",
+            "description": "User's daily water norma",
+            "example": 5
+          }
+        }
+      },
+      "AddAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatarURL",
+            "example": "http://res.cloudinary.com/dkftturzq/image/upload/v1703423264/waterTracker-avatars/eyq4rdyflxc5zgrthfcy.jpg"
+          }
+        }
+      }
+    }
+  },
+  "securitySchemes": {
+    "Bearer": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  }
+}
