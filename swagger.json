@@ -20,6 +20,10 @@
     {
       "name": "User",
       "description": "User endpoints"
+    },
+    {
+      "name": "Water",
+      "description": "Water endpoints"
     }
   ],
   "paths": {
@@ -224,6 +228,126 @@
           }
         }
       }
+    },
+    "/api/water-track": {
+      "post": {
+        "tags": ["Water"],
+        "summary": "Water add",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "addWater's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddWaterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddWaterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["Water"],
+        "summary": "Water update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "waterId",
+            "required": true,
+            "type": "string",
+            "description": "Water's id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "updateWater's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWaterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateWaterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Water track with id = :waterId is not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Water"],
+        "summary": "Water delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "waterId",
+            "required": true,
+            "type": "string",
+            "description": "Water's id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteWaterResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Water track with id = :waterId is not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -289,6 +413,37 @@
           }
         }
       },
+      "AddWaterRequest": {
+        "type": "object",
+        "required": ["amountWater", "date"],
+        "properties": {
+          "amountWater": {
+            "type": "number",
+            "description": "Water's amount",
+            "example": 500
+          },
+          "date": {
+            "type": "number",
+            "description": "Water's date",
+            "example": 1703539761164
+          }
+        }
+      },
+      "UpdateWaterRequest": {
+        "type": "object",
+        "properties": {
+          "amountWater": {
+            "type": "number",
+            "description": "Water's amount",
+            "example": 500
+          },
+          "date": {
+            "type": "number",
+            "description": "Water's date",
+            "example": 1703539761164
+          }
+        }
+      },
       "RegisterResponse": {
         "type": "object",
         "properties": {
@@ -319,7 +474,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "description": "User's token",
+            "description": "User's logout",
             "example": "Logout success!"
           }
         }
@@ -391,6 +546,56 @@
             "type": "string",
             "description": "User's avatarURL",
             "example": "http://res.cloudinary.com/dkftturzq/image/upload/v1703423264/waterTracker-avatars/eyq4rdyflxc5zgrthfcy.jpg"
+          }
+        }
+      },
+      "AddWaterResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "description": "Water's data",
+            "example": "2023/12/22/07:30:12"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Water's owner",
+            "example": "658604d78e9ae265dbf6a3ac"
+          },
+          "amountWater": {
+            "type": "number",
+            "description": "Water's amount",
+            "example": 500
+          }
+        }
+      },
+      "DeleteWaterResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Water's deleted",
+            "example": "Water track deleted"
+          }
+        }
+      },
+      "UpdateWaterResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "description": "Water's data",
+            "example": "2023/12/25/23:45:12"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Water's owner",
+            "example": "658604d78e9ae265dbf6a3ac"
+          },
+          "amountWater": {
+            "type": "number",
+            "description": "Water's amount",
+            "example": 500
           }
         }
       }
