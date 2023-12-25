@@ -8,7 +8,10 @@ export const changeUserSchema = Joi.object({
   password: Joi.string().min(8).max(48),
   oldPassword: Joi.string().min(8).max(48),
   gender: Joi.string().valid(...["male", "female"]),
-  dailyNorma: Joi.number().min(0),
+  dailyNorma: Joi.number().min(0).max(15).messages({
+    "number.min": "The daily water intake cannot be less than 0 liters!",
+    "number.max": "The daily water intake cannot exceed 15 liters!",
+  }),
 });
 
 export const userAvatarsSchema = Joi.object({
