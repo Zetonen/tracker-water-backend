@@ -24,6 +24,10 @@
     {
       "name": "Water",
       "description": "Water endpoints"
+    },
+    {
+      "name": "Month",
+      "description": "Month endpoints"
     }
   ],
   "paths": {
@@ -348,6 +352,56 @@
           }
         }
       }
+    },
+    "/api/water-track/month": {
+      "get": {
+        "tags": ["Month"],
+        "summary": "Month get info",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "waterId",
+            "required": true,
+            "type": "string",
+            "description": "Water's id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "month's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Water track with id = :waterId is not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -441,6 +495,16 @@
             "type": "number",
             "description": "Water's date",
             "example": 1703539761164
+          }
+        }
+      },
+      "MonthRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "number",
+            "description": "Water's date",
+            "example": "2023-10"
           }
         }
       },
@@ -598,6 +662,48 @@
             "example": 500
           }
         }
+      },
+      "MonthResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "Month's date",
+              "example": "5, April"
+            },
+            "dailyNorma": {
+              "type": "string",
+              "description": "Month's daily norma",
+              "example": "5"
+            },
+            "PercentageWaterConsumed": {
+              "type": "string",
+              "description": "Month's percentage water consumed",
+              "example": "20%"
+            },
+            "quantityWaterTrack": {
+              "type": "integer",
+              "description": "Month's quantity water track",
+              "example": 2
+            }
+          }
+        },
+        "example": [
+          {
+            "date": "5, April",
+            "dailyNorma": "2",
+            "PercentageWaterConsumed": "70%",
+            "quantityWaterTrack": 3
+          },
+          {
+            "date": "6, April",
+            "dailyNorma": "2",
+            "PercentageWaterConsumed": "75%",
+            "quantityWaterTrack": 4
+          }
+        ]
       }
     }
   },
