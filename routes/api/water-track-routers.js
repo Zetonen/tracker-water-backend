@@ -9,6 +9,7 @@ import { validateBody } from "../../decorators/index.js";
 import waterTrackControllers from "../../controllers/water-track-controllers.js";
 import {
   addWaterSchema,
+  getWaterInfoForMonthSchema,
   updateWaterSchema,
 } from "../../schema/water-tracks-schema.js";
 const waterTrackRouter = express.Router();
@@ -34,6 +35,19 @@ waterTrackRouter.delete(
   "/:waterId",
   isValidId,
   waterTrackControllers.deleteWaterById
+);
+
+waterTrackRouter.get(
+  "/month",
+  isEmptyBody,
+  validateBody(getWaterInfoForMonthSchema),
+  waterTrackControllers.getWaterInfoForMonth
+);
+waterTrackRouter.get(
+  "/today",
+  isEmptyBody,
+  validateBody(getWaterInfoForMonthSchema),
+  waterTrackControllers.getWaterInfoForToday
 );
 
 export default waterTrackRouter;

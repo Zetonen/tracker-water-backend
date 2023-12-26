@@ -5,6 +5,7 @@ import * as waterTrackService from "./waterTrack/index.js";
 export default {
   addWater: ctrlWrapper(waterTrackService.addWater),
   updateWaterById: ctrlWrapper(waterTrackService.updateWaterById),
-  deleteWaterById: ctrlWrapper(waterTrackService.deleteWaterById)
-
+  deleteWaterById: ctrlWrapper(waterTrackService.deleteWaterById),
+  getWaterInfoForMonth: ctrlWrapper(waterTrackService.getWaterInfoForMonth),
+  getWaterInfoForToday: ctrlWrapper(waterTrackService.getWaterInfoForToday),
 };

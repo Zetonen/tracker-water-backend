@@ -19,3 +19,10 @@ export const updateWaterSchema = Joi.object({
     "number.base": `Date must be number`,
   }),
 });
+
+export const getWaterInfoForMonthSchema = Joi.object({
+  date: Joi.string().required().messages({
+    "string.base": `Date must be string`,
+    "any.required": `Date is required`,
+  }),
+});
