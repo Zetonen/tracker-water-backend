@@ -14,6 +14,13 @@ export const changeUserSchema = Joi.object({
   }),
 });
 
+export const userWaterRateSchema = Joi.object({
+  dailyNorma: Joi.number().min(0).max(15).messages({
+    "number.min": "The daily water intake cannot be less than 0 liters!",
+    "number.max": "The daily water intake cannot exceed 15 liters!",
+  }),
+});
+
 export const userAvatarsSchema = Joi.object({
   avatarURL: Joi.string(),
 });
