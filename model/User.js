@@ -1,36 +1,40 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
-import { handleSaveError, preUpdate } from "./hook.js";
-import { emailRegexp } from "../schema/user-schema.js";
+import { handleSaveError, preUpdate } from './hook.js';
+import { emailRegexp } from '../schema/user-schema.js';
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
       maxLength: 32,
-      default: "V",
+      default: 'V',
     },
     email: {
       type: String,
       match: emailRegexp,
-      required: [true, "The email is required!"],
+      required: [true, 'The email is required!'],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "The password is required!"],
+      required: [true, 'The password is required!'],
       minLength: 8,
     },
     gender: {
       type: String,
-      enum: ["male", "female"],
-      default: "male",
+      enum: ['male', 'female'],
+      default: 'male',
     },
     dailyNorma: {
       type: Number,
+<<<<<<< Updated upstream
       min: [0, "The daily water intake cannot be less than 0 liters"],
       max: [15, "The daily water intake cannot exceed 15 liters"],
       set: (v) => v.toFixed(2),
+=======
+      min: 0,
+>>>>>>> Stashed changes
       default: 2,
     },
     oldPassword: {
@@ -47,10 +51,10 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-userSchema.post("save", handleSaveError);
-userSchema.pre("findOneAndUpdate", preUpdate);
-userSchema.post("findOneAndUpdate", handleSaveError);
+userSchema.post('save', handleSaveError);
+userSchema.pre('findOneAndUpdate', preUpdate);
+userSchema.post('findOneAndUpdate', handleSaveError);
 
-const User = model("user", userSchema);
+const User = model('user', userSchema);
 
 export default User;
