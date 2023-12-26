@@ -11,6 +11,7 @@ import {
   userSignupSchema,
   changeUserSchema,
   userAvatarsSchema,
+  userWaterRateSchema,
 } from "../../schema/user-schema.js";
 
 const usersRouter = express.Router();
@@ -42,11 +43,18 @@ usersRouter.patch(
 );
 
 usersRouter.patch(
-  "/addAvatar",
+  "/updateAvatar",
   authenticate,
   uploadAvatar.single("avatar"),
   validateBody(userAvatarsSchema),
-  usersService.addAvatar
+  usersService.updateAvatar
+);
+
+usersRouter.patch(
+  "/water-rate",
+  authenticate,
+  validateBody(userWaterRateSchema),
+  usersService.updateWaterRate
 );
 
 export default usersRouter;

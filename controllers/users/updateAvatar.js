@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import { HttpError, paramsAvatar, cloudinary } from "../../helpers/index.js";
 import User from "../../model/User.js";
 
-const addAvatar = async (req, res, next) => {
+const updateAvatar = async (req, res, next) => {
   const { _id: id } = req.user;
   if (req.file === undefined) {
     throw HttpError(404, "Image not found");
@@ -19,4 +19,4 @@ const addAvatar = async (req, res, next) => {
   });
 };
 
-export default addAvatar;
+export default updateAvatar;
