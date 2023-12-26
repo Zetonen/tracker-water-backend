@@ -1,15 +1,13 @@
 import mongoose from 'mongoose';
 import WaterTrack from '../../model/WaterTracker.js';
-import { waterBalance } from '../../helpers/index.js';
 import { getMonth, getYear, format } from 'date-fns';
 
 const getWaterInfoForMonth = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: owner, dailyNorma } = req.user;
   const { date } = req.body;
   const year = getYear(new Date(date));
   const month = getMonth(new Date(date));
   const monthString = format(new Date(date), 'MMMM');
-  const dailyNorma = await waterBalance(owner);
   const dailyNormaString = `${dailyNorma}L`;
 
   const result = await WaterTrack.aggregate([
@@ -71,7 +69,7 @@ const getWaterInfoForMonth = async (req, res) => {
     },
   ]);
 
-  res.status(200).json(result);
+  res.json(result);
 };
 
 export default getWaterInfoForMonth;
