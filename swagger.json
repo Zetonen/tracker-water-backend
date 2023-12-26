@@ -190,19 +190,19 @@
         }
       }
     },
-    "/users/addAvatar": {
+    "/users/updateAvatar": {
       "patch": {
         "tags": ["User"],
-        "summary": "User add avatar",
+        "summary": "User update avatar",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "addAvatar's object",
+          "description": "updateAvatar's object",
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/AddAvatarRequest"
+                "$ref": "#/components/schemas/UpdateAvatarRequest"
               }
             }
           }
@@ -213,7 +213,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddAvatarResponse"
+                  "$ref": "#/components/schemas/UpdateAvatarResponse"
                 }
               }
             }
@@ -403,7 +403,7 @@
           }
         }
       },
-      "AddAvatarRequest": {
+      "UpdateAvatarRequest": {
         "type": "object",
         "properties": {
           "avatar": {
@@ -539,7 +539,7 @@
           }
         }
       },
-      "AddAvatarResponse": {
+      "UpdateAvatarResponse": {
         "type": "object",
         "properties": {
           "avatarURL": {
