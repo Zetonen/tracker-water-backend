@@ -65,6 +65,7 @@ const getWaterInfoForToday = async (req, res) => {
        },
        dateA: {
         $concat: [{ $toString: dayOfMonth }, ", ", { $toString: monthString }],
+
        },
       },
      },

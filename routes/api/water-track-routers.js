@@ -40,13 +40,13 @@ waterTrackRouter.delete(
  waterTrackControllers.deleteWaterById
 );
 
-waterTrackRouter.get(
+waterTrackRouter.post(
  "/month",
  isEmptyParams,
  validateParams(getWaterInfoForMonthSchema),
  waterTrackControllers.getWaterInfoForMonth
 );
-waterTrackRouter.get(
+waterTrackRouter.post(
  "/today",
  isEmptyParams,
  validateParams(getWaterInfoForMTodaySchema),
