@@ -1,717 +1,717 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "version": "2.0.2",
-    "title": "Swagger test",
-    "description": "Showing off swagger-ui-express",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
-  },
-  "consumes": ["application/json", "multipart/form-data"],
-  "produces": ["application/json", "multipart/form-data"],
-  "servers": [{ "url": "http://localhost:4000" }],
-  "tags": [
-    {
-      "name": "Auth",
-      "description": "Authorization endpoints"
-    },
-    {
-      "name": "User",
-      "description": "User endpoints"
-    },
-    {
-      "name": "Water",
-      "description": "Water endpoints"
-    },
-    {
-      "name": "Month",
-      "description": "Month endpoints"
-    }
-  ],
-  "paths": {
-    "/auth/signup": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User registration",
-        "parameters": [],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegisterResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/auth/signin": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User login",
-        "parameters": [],
-        "requestBody": {
-          "description": "Login's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Email or password invalid!",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "post": {
-        "tags": ["Auth"],
-        "summary": "User logout",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LogoutResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/getInfo": {
-      "get": {
-        "tags": ["User"],
-        "summary": "User get all info",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "getInfo's object",
-          "required": false
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetInfoResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/changeInfo": {
-      "patch": {
-        "tags": ["User"],
-        "summary": "User change info",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "changeInfo's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangeInfoRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChangeInfoResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized/User not found/Password invalid!",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/users/updateAvatar": {
-      "patch": {
-        "tags": ["User"],
-        "summary": "User update avatar",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "updateAvatar's object",
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAvatarRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateAvatarResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          },
-          "404": {
-            "description": "Image not found",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/api/water-track": {
-      "post": {
-        "tags": ["Water"],
-        "summary": "Water add",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "addWater's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddWaterRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddWaterResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          }
-        }
-      },
-      "put": {
-        "tags": ["Water"],
-        "summary": "Water update",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "waterId",
-            "required": true,
-            "type": "string",
-            "description": "Water's id"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "updateWater's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateWaterRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateWaterResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          },
-          "404": {
-            "description": "Water track with id = :waterId is not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Water"],
-        "summary": "Water delete",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "waterId",
-            "required": true,
-            "type": "string",
-            "description": "Water's id"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeleteWaterResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          },
-          "404": {
-            "description": "Water track with id = :waterId is not found"
-          }
-        }
-      }
-    },
-    "/api/water-track/month": {
-      "get": {
-        "tags": ["Month"],
-        "summary": "Month get info",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "waterId",
-            "required": true,
-            "type": "string",
-            "description": "Water's id"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "month's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MonthRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MonthResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized/User not found",
-            "content": {}
-          },
-          "404": {
-            "description": "Water track with id = :waterId is not found"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "RegistrationRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          }
-        }
-      },
-      "ChangeInfoRequest": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Vova"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "oldPassword": {
-            "type": "string",
-            "description": "User's old password",
-            "example": "qwerty1"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's old password",
-            "example": "qwerty2"
-          },
-          "gender": {
-            "type": "string",
-            "description": "User's gender",
-            "example": "female"
-          },
-          "dailyNorma": {
-            "type": "number",
-            "description": "User's daily water norma",
-            "example": 5
-          }
-        }
-      },
-      "UpdateAvatarRequest": {
-        "type": "object",
-        "properties": {
-          "avatar": {
-            "type": "string",
-            "description": "User's avatar",
-            "format": "binary"
-          }
-        }
-      },
-      "AddWaterRequest": {
-        "type": "object",
-        "required": ["amountWater", "date"],
-        "properties": {
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
-          },
-          "date": {
-            "type": "number",
-            "description": "Water's date",
-            "example": 1703539761164
-          }
-        }
-      },
-      "UpdateWaterRequest": {
-        "type": "object",
-        "properties": {
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
-          },
-          "date": {
-            "type": "number",
-            "description": "Water's date",
-            "example": 1703539761164
-          }
-        }
-      },
-      "MonthRequest": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "number",
-            "description": "Water's date",
-            "example": "2023-10"
-          }
-        }
-      },
-      "RegisterResponse": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email"
-              }
-            }
-          }
-        }
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
-          }
-        }
-      },
-      "LogoutResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "User's logout",
-            "example": "Logout success!"
-          }
-        }
-      },
-      "GetInfoResponse": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "User's name",
-            "example": "V"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "gender": {
-            "type": "string",
-            "description": "User's gender",
-            "example": "male"
-          },
-          "dailyNorma": {
-            "type": "number",
-            "description": "User's daily water norma",
-            "example": 2
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatarURL",
-            "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
-          }
-        }
-      },
-      "ChangeInfoResponse": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Vova"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "$2a$10$oMRe2.Vxu3MUb1fTN/tCX.m4Q7G1B7AGU/ETwRasTBLHgJrTGPCyi"
-          },
-          "gender": {
-            "type": "string",
-            "description": "User's gender",
-            "example": "female"
-          },
-          "dailyNorma": {
-            "type": "number",
-            "description": "User's daily water norma",
-            "example": 5
-          }
-        }
-      },
-      "UpdateAvatarResponse": {
-        "type": "object",
-        "properties": {
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatarURL",
-            "example": "http://res.cloudinary.com/dkftturzq/image/upload/v1703423264/waterTracker-avatars/eyq4rdyflxc5zgrthfcy.jpg"
-          }
-        }
-      },
-      "AddWaterResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "string",
-            "description": "Water's data",
-            "example": "2023/12/22/07:30:12"
-          },
-          "owner": {
-            "type": "string",
-            "description": "Water's owner",
-            "example": "658604d78e9ae265dbf6a3ac"
-          },
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
-          }
-        }
-      },
-      "DeleteWaterResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Water's deleted",
-            "example": "Water track deleted"
-          }
-        }
-      },
-      "UpdateWaterResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "string",
-            "description": "Water's data",
-            "example": "2023/12/25/23:45:12"
-          },
-          "owner": {
-            "type": "string",
-            "description": "Water's owner",
-            "example": "658604d78e9ae265dbf6a3ac"
-          },
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
-          }
-        }
-      },
-      "MonthResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "string",
-              "description": "Month's date",
-              "example": "5, April"
-            },
-            "dailyNorma": {
-              "type": "string",
-              "description": "Month's daily norma",
-              "example": "5"
-            },
-            "PercentageWaterConsumed": {
-              "type": "string",
-              "description": "Month's percentage water consumed",
-              "example": "20%"
-            },
-            "quantityWaterTrack": {
-              "type": "integer",
-              "description": "Month's quantity water track",
-              "example": 2
-            }
-          }
-        },
-        "example": [
-          {
-            "date": "5, April",
-            "dailyNorma": "2",
-            "PercentageWaterConsumed": "70%",
-            "quantityWaterTrack": 3
-          },
-          {
-            "date": "6, April",
-            "dailyNorma": "2",
-            "PercentageWaterConsumed": "75%",
-            "quantityWaterTrack": 4
-          }
-        ]
-      }
-    }
-  },
-  "securitySchemes": {
-    "Bearer": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
-    }
+ "openapi": "3.0.1",
+ "info": {
+  "version": "2.0.2",
+  "title": "Swagger test",
+  "description": "Showing off swagger-ui-express",
+  "license": {
+   "name": "MIT",
+   "url": "https://opensource.org/licenses/MIT"
   }
+ },
+ "consumes": ["application/json", "multipart/form-data"],
+ "produces": ["application/json", "multipart/form-data"],
+ "servers": [{ "url": "https://water-track-backend.onrender.com/" }],
+ "tags": [
+  {
+   "name": "Auth",
+   "description": "Authorization endpoints"
+  },
+  {
+   "name": "User",
+   "description": "User endpoints"
+  },
+  {
+   "name": "Water",
+   "description": "Water endpoints"
+  },
+  {
+   "name": "Month",
+   "description": "Month endpoints"
+  }
+ ],
+ "paths": {
+  "/auth/signup": {
+   "post": {
+    "tags": ["Auth"],
+    "summary": "User registration",
+    "parameters": [],
+    "requestBody": {
+     "description": "Registration's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RegistrationRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RegisterResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "409": {
+      "description": "Provided email already exists",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/auth/signin": {
+   "post": {
+    "tags": ["Auth"],
+    "summary": "User login",
+    "parameters": [],
+    "requestBody": {
+     "description": "Login's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RegistrationRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/LoginResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "401": {
+      "description": "Email or password invalid!",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/auth/logout": {
+   "post": {
+    "tags": ["Auth"],
+    "summary": "User logout",
+    "parameters": [],
+    "security": [{ "Bearer": [] }],
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/LogoutResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/users/getInfo": {
+   "get": {
+    "tags": ["User"],
+    "summary": "User get all info",
+    "parameters": [],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "getInfo's object",
+     "required": false
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/GetInfoResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/users/changeInfo": {
+   "patch": {
+    "tags": ["User"],
+    "summary": "User change info",
+    "parameters": [],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "changeInfo's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChangeInfoRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ChangeInfoResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Not authorized/User not found/Password invalid!",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/users/updateAvatar": {
+   "patch": {
+    "tags": ["User"],
+    "summary": "User update avatar",
+    "parameters": [],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "updateAvatar's object",
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/UpdateAvatarRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/UpdateAvatarResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     },
+     "404": {
+      "description": "Image not found",
+      "content": {}
+     }
+    }
+   }
+  },
+  "/api/water-track": {
+   "post": {
+    "tags": ["Water"],
+    "summary": "Water add",
+    "parameters": [],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "addWater's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AddWaterRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AddWaterResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     }
+    }
+   },
+   "put": {
+    "tags": ["Water"],
+    "summary": "Water update",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "waterId",
+      "required": true,
+      "type": "string",
+      "description": "Water's id"
+     }
+    ],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "updateWater's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UpdateWaterRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/UpdateWaterResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     },
+     "404": {
+      "description": "Water track with id = :waterId is not found"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["Water"],
+    "summary": "Water delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "waterId",
+      "required": true,
+      "type": "string",
+      "description": "Water's id"
+     }
+    ],
+    "security": [{ "Bearer": [] }],
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DeleteWaterResponse"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     },
+     "404": {
+      "description": "Water track with id = :waterId is not found"
+     }
+    }
+   }
+  },
+  "/api/water-track/month": {
+   "get": {
+    "tags": ["Month"],
+    "summary": "Month get info",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "waterId",
+      "required": true,
+      "type": "string",
+      "description": "Water's id"
+     }
+    ],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "month's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MonthRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MonthResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     },
+     "404": {
+      "description": "Water track with id = :waterId is not found"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "RegistrationRequest": {
+    "type": "object",
+    "required": ["email", "password"],
+    "properties": {
+     "email": {
+      "type": "string",
+      "description": "User's email",
+      "format": "email"
+     },
+     "password": {
+      "type": "string",
+      "description": "User's password",
+      "example": "qwerty123"
+     }
+    }
+   },
+   "ChangeInfoRequest": {
+    "type": "object",
+    "properties": {
+     "username": {
+      "type": "string",
+      "description": "User's name",
+      "example": "Vova"
+     },
+     "email": {
+      "type": "string",
+      "description": "User's email",
+      "format": "email"
+     },
+     "oldPassword": {
+      "type": "string",
+      "description": "User's old password",
+      "example": "qwerty1"
+     },
+     "password": {
+      "type": "string",
+      "description": "User's old password",
+      "example": "qwerty2"
+     },
+     "gender": {
+      "type": "string",
+      "description": "User's gender",
+      "example": "female"
+     },
+     "dailyNorma": {
+      "type": "number",
+      "description": "User's daily water norma",
+      "example": 5
+     }
+    }
+   },
+   "UpdateAvatarRequest": {
+    "type": "object",
+    "properties": {
+     "avatar": {
+      "type": "string",
+      "description": "User's avatar",
+      "format": "binary"
+     }
+    }
+   },
+   "AddWaterRequest": {
+    "type": "object",
+    "required": ["amountWater", "date"],
+    "properties": {
+     "amountWater": {
+      "type": "number",
+      "description": "Water's amount",
+      "example": 500
+     },
+     "date": {
+      "type": "number",
+      "description": "Water's date",
+      "example": 1703539761164
+     }
+    }
+   },
+   "UpdateWaterRequest": {
+    "type": "object",
+    "properties": {
+     "amountWater": {
+      "type": "number",
+      "description": "Water's amount",
+      "example": 500
+     },
+     "date": {
+      "type": "number",
+      "description": "Water's date",
+      "example": 1703539761164
+     }
+    }
+   },
+   "MonthRequest": {
+    "type": "object",
+    "properties": {
+     "date": {
+      "type": "number",
+      "description": "Water's date",
+      "example": "2023-10"
+     }
+    }
+   },
+   "RegisterResponse": {
+    "type": "object",
+    "properties": {
+     "user": {
+      "type": "object",
+      "properties": {
+       "email": {
+        "type": "string",
+        "description": "User's email",
+        "format": "email"
+       }
+      }
+     }
+    }
+   },
+   "LoginResponse": {
+    "type": "object",
+    "properties": {
+     "token": {
+      "type": "string",
+      "description": "User's token",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
+     }
+    }
+   },
+   "LogoutResponse": {
+    "type": "object",
+    "properties": {
+     "message": {
+      "type": "string",
+      "description": "User's logout",
+      "example": "Logout success!"
+     }
+    }
+   },
+   "GetInfoResponse": {
+    "type": "object",
+    "properties": {
+     "username": {
+      "type": "string",
+      "description": "User's name",
+      "example": "V"
+     },
+     "email": {
+      "type": "string",
+      "description": "User's email",
+      "format": "email"
+     },
+     "gender": {
+      "type": "string",
+      "description": "User's gender",
+      "example": "male"
+     },
+     "dailyNorma": {
+      "type": "number",
+      "description": "User's daily water norma",
+      "example": 2
+     },
+     "avatarURL": {
+      "type": "string",
+      "description": "User's avatarURL",
+      "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
+     }
+    }
+   },
+   "ChangeInfoResponse": {
+    "type": "object",
+    "properties": {
+     "username": {
+      "type": "string",
+      "description": "User's name",
+      "example": "Vova"
+     },
+     "email": {
+      "type": "string",
+      "description": "User's email",
+      "format": "email"
+     },
+     "password": {
+      "type": "string",
+      "description": "User's password",
+      "example": "$2a$10$oMRe2.Vxu3MUb1fTN/tCX.m4Q7G1B7AGU/ETwRasTBLHgJrTGPCyi"
+     },
+     "gender": {
+      "type": "string",
+      "description": "User's gender",
+      "example": "female"
+     },
+     "dailyNorma": {
+      "type": "number",
+      "description": "User's daily water norma",
+      "example": 5
+     }
+    }
+   },
+   "UpdateAvatarResponse": {
+    "type": "object",
+    "properties": {
+     "avatarURL": {
+      "type": "string",
+      "description": "User's avatarURL",
+      "example": "http://res.cloudinary.com/dkftturzq/image/upload/v1703423264/waterTracker-avatars/eyq4rdyflxc5zgrthfcy.jpg"
+     }
+    }
+   },
+   "AddWaterResponse": {
+    "type": "object",
+    "properties": {
+     "data": {
+      "type": "string",
+      "description": "Water's data",
+      "example": "2023/12/22/07:30:12"
+     },
+     "owner": {
+      "type": "string",
+      "description": "Water's owner",
+      "example": "658604d78e9ae265dbf6a3ac"
+     },
+     "amountWater": {
+      "type": "number",
+      "description": "Water's amount",
+      "example": 500
+     }
+    }
+   },
+   "DeleteWaterResponse": {
+    "type": "object",
+    "properties": {
+     "message": {
+      "type": "string",
+      "description": "Water's deleted",
+      "example": "Water track deleted"
+     }
+    }
+   },
+   "UpdateWaterResponse": {
+    "type": "object",
+    "properties": {
+     "data": {
+      "type": "string",
+      "description": "Water's data",
+      "example": "2023/12/25/23:45:12"
+     },
+     "owner": {
+      "type": "string",
+      "description": "Water's owner",
+      "example": "658604d78e9ae265dbf6a3ac"
+     },
+     "amountWater": {
+      "type": "number",
+      "description": "Water's amount",
+      "example": 500
+     }
+    }
+   },
+   "MonthResponse": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "date": {
+       "type": "string",
+       "description": "Month's date",
+       "example": "5, April"
+      },
+      "dailyNorma": {
+       "type": "string",
+       "description": "Month's daily norma",
+       "example": "5"
+      },
+      "PercentageWaterConsumed": {
+       "type": "string",
+       "description": "Month's percentage water consumed",
+       "example": "20%"
+      },
+      "quantityWaterTrack": {
+       "type": "integer",
+       "description": "Month's quantity water track",
+       "example": 2
+      }
+     }
+    },
+    "example": [
+     {
+      "date": "5, April",
+      "dailyNorma": "2",
+      "PercentageWaterConsumed": "70%",
+      "quantityWaterTrack": 3
+     },
+     {
+      "date": "6, April",
+      "dailyNorma": "2",
+      "PercentageWaterConsumed": "75%",
+      "quantityWaterTrack": 4
+     }
+    ]
+   }
+  }
+ },
+ "securitySchemes": {
+  "Bearer": {
+   "type": "http",
+   "scheme": "bearer",
+   "bearerFormat": "JWT"
+  }
+ }
 }
