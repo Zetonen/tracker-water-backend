@@ -168,7 +168,7 @@
     "tags": ["User"],
     "summary": "User change info",
     "parameters": [],
-    "security": [{ "Bearer": [] }],
+    "security": {"Authorization":[{ "Bearer": [] }]},
     "requestBody": {
      "description": "changeInfo's object",
      "required": true,
