@@ -28,6 +28,10 @@
   {
    "name": "Month",
    "description": "Month endpoints"
+  },
+  {
+   "name": "Today",
+   "description": "Today endpoints"
   }
  ],
  "paths": {
@@ -402,6 +406,56 @@
      }
     }
    }
+  },
+  "/api/water-track/today": {
+   "get": {
+    "tags": ["Today"],
+    "summary": "Today get info",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "waterId",
+      "required": true,
+      "type": "string",
+      "description": "Water's id"
+     }
+    ],
+    "security": [{ "Bearer": [] }],
+    "requestBody": {
+     "description": "today's object",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TodayRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful operation",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TodayResponse"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request (invalid request body)",
+      "content": {}
+     },
+     "401": {
+      "description": "Not authorized/User not found",
+      "content": {}
+     },
+     "404": {
+      "description": "Water track with id = :waterId is not found"
+     }
+    }
+   }
   }
  },
  "components": {
@@ -477,9 +531,9 @@
       "example": 500
      },
      "date": {
-      "type": "number",
+      "type": "string",
       "description": "Water's date",
-      "example": 1703539761164
+      "example": "2023/12/25/23:45:12"
      }
     }
    },
@@ -492,9 +546,9 @@
       "example": 500
      },
      "date": {
-      "type": "number",
+      "type": "string",
       "description": "Water's date",
-      "example": 1703539761164
+      "example": "2023/12/25/23:45:12"
      }
     }
    },
@@ -502,9 +556,19 @@
     "type": "object",
     "properties": {
      "date": {
-      "type": "number",
+      "type": "string",
       "description": "Water's date",
       "example": "2023-10"
+     }
+    }
+   },
+   "TodayRequest": {
+    "type": "object",
+    "properties": {
+     "date": {
+      "type": "string",
+      "description": "Water's date",
+      "example": "2023/10/11"
      }
     }
    },
@@ -702,6 +766,44 @@
       "dailyNorma": "2",
       "PercentageWaterConsumed": "75%",
       "quantityWaterTrack": 4
+     }
+    ]
+   },
+   "TodayResponse": {
+    "type": "object",
+    "properties": {
+     "percentageDailyNorm": {
+      "type": "string",
+      "description": "Water's deleted",
+      "example": "70%"
+     },
+     "waterTracks": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "date": {
+         "type": "string",
+         "description": "Todays's date",
+         "example": "2023/10/11/14:30"
+        },
+        "waterAmount": {
+         "type": "number",
+         "description": "Todays's date",
+         "example": 500
+        }
+       }
+      }
+     }
+    },
+    "example": [
+     {
+      "date": "2023/10/11/14:30",
+      "waterAmount": 500
+     },
+     {
+      "date": "2023/10/11/15:30",
+      "waterAmount": 500
      }
     ]
    }
