@@ -22,15 +22,15 @@ app.use("/api/water-track", waterTrackRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+ res.status(404).json({ message: "Not found" });
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
-  const { status = 500, message = "Server error" } = err;
-  res.status(status).json({
-    message,
-  });
+ console.log(err);
+ const { status = 500, message = "Server error" } = err;
+ res.status(status).json({
+  message,
+ });
 });
 
 export default app;
