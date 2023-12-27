@@ -25,8 +25,25 @@ const getWaterInfoForToday = async (req, res) => {
         },
       },
     },
-    {
+   },
+  },
+  {
+   $facet: {
+    totalWater: [
+     {
+      $group: {
+       _id: {
+        day: { $dayOfMonth: { $toDate: "$date" } },
+       },
+       totalAmountWater: { $sum: "$amountWater" },
+       quantityWaterTrack: { $sum: 1 },
+      },
+     },
+    ],
+    waterTracks: [
+     {
       $project: {
+
         _id: 0,
         amountWater: 1,
         date: 1,
@@ -59,12 +76,21 @@ const getWaterInfoForToday = async (req, res) => {
             { $toString: monthString },
           ],
         },
-        dayOfMonth: 1,
+       },
       },
+      "%",
+     ],
     },
-  ]);
-
-  res.status(200).json(result);
+    waterTracks: "$waterTracks",
+   },
+  },
+  {
+   $project: {
+    _id: 0,
+   },
+  },
+ ]);
+ res.json(result[0]);
 };
 
 export default getWaterInfoForToday;
