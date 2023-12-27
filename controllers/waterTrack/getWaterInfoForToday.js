@@ -4,7 +4,8 @@ import { getDate, getMonth, getYear } from "date-fns";
 
 const getWaterInfoForToday = async (req, res) => {
  const { _id: owner, dailyNorma } = req.user;
- const { date } = req.body;
+ const { date } = req.query;
+
  const originalDate = new Date(date);
  const dayOfMonth = getDate(originalDate);
  const year = getYear(new Date(date));
@@ -23,6 +24,7 @@ const getWaterInfoForToday = async (req, res) => {
     },
    },
   },
+
   {
    $facet: {
     totalWater: [
@@ -40,36 +42,39 @@ const getWaterInfoForToday = async (req, res) => {
      {
       $project: {
        _id: 0,
-       id: "$_id",
        amountWater: 1,
-       date: "$date",
-      },
-     },
-    ],
-   },
-  },
-  {
-   $project: {
-    percentageWaterConsumed: {
-     $concat: [
-      {
-       $toString: {
-        $round: {
-         $divide: [
-          {
-           $ifNull: [{ $arrayElemAt: ["$totalWater.totalAmountWater", 0] }, 0],
+       date: 1,
+       dailyNormaString,
+       percentageWaterConsumptionFromDailyNorms: {
+        $concat: [
+         {
+          $toString: {
+           $concat: [
+            {
+             $toString: {
+              $round: {
+               $divide: [{ $divide: ["$amountWater", 10] }, dailyNorma],
+              },
+             },
+            },
+            "%",
+           ],
           },
-          { $multiply: [dailyNorma, 10] },
-         ],
-        },
+         },
+        ],
+       },
+       dateA: {
+        $concat: [{ $toString: dayOfMonth }, ", ", { $toString: monthString }],
+
        },
       },
-      "%",
-     ],
-    },
-    waterTracks: "$waterTracks",
+     },
+     "%",
+    ],
    },
+   waterTracks: "$waterTracks",
   },
+
   {
    $project: {
     _id: 0,
