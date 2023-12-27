@@ -1,25 +1,29 @@
 import mongoose from "mongoose";
 import WaterTrack from "../../model/WaterTracker.js";
-import { getDate, getMonth, getYear } from "date-fns";
+import { getDate, getMonth, getYear, format } from "date-fns";
 
 const getWaterInfoForToday = async (req, res) => {
- const { _id: owner, dailyNorma } = req.user;
- const { date } = req.body;
- const originalDate = new Date(date);
- const dayOfMonth = getDate(originalDate);
- const year = getYear(new Date(date));
- const month = getMonth(new Date(date));
+  const { _id: owner, dailyNorma } = req.user;
+  const { date } = req.body;
+  const originalDate = new Date(date);
+  const dayOfMonth = getDate(originalDate);
+  const year = getYear(new Date(date));
+  const month = getMonth(new Date(date));
+  const monthString = format(new Date(date), 'MMMM');
+  const dailyNormaString = `${dailyNorma}L`;
 
- const result = await WaterTrack.aggregate([
-  {
-   $match: {
-    owner: new mongoose.Types.ObjectId(owner),
-    $expr: {
-     $and: [
-      { $eq: [{ $year: { $toDate: "$date" } }, year] },
-      { $eq: [{ $month: { $toDate: "$date" } }, month + 1] },
-      { $eq: [{ $dayOfMonth: { $toDate: "$date" } }, dayOfMonth] },
-     ],
+  const result = await WaterTrack.aggregate([
+    {
+      $match: {
+        owner: new mongoose.Types.ObjectId(owner),
+        $expr: {
+          $and: [
+            { $eq: [{ $year: { $toDate: "$date" } }, year] },
+            { $eq: [{ $month: { $toDate: "$date" } }, month + 1] },
+            { $eq: [{ $dayOfMonth: { $toDate: "$date" } }, dayOfMonth] },
+          ],
+        },
+      },
     },
    },
   },
@@ -39,28 +43,38 @@ const getWaterInfoForToday = async (req, res) => {
     waterTracks: [
      {
       $project: {
-       _id: 0,
-       id: "$_id",
-       amountWater: 1,
-       date: "$date",
-      },
-     },
-    ],
-   },
-  },
-  {
-   $project: {
-    percentageWaterConsumed: {
-     $concat: [
-      {
-       $toString: {
-        $round: {
-         $divide: [
-          {
-           $ifNull: [{ $arrayElemAt: ["$totalWater.totalAmountWater", 0] }, 0],
-          },
-          { $multiply: [dailyNorma, 10] },
-         ],
+
+        _id: 0,
+        amountWater: 1,
+        date: 1,
+        dailyNormaString,
+        percentageWaterConsumptionFromDailyNorms: {
+          $concat: [
+            {
+              $toString: {
+                $concat: [
+                  {
+                    $toString: {
+                      $round: {
+                        $divide: [
+                          { $divide: ["$amountWater", 10] },
+                          dailyNorma,
+                        ],
+                      },
+                    },
+                  },
+                  "%",
+                ],
+              },
+            },
+          ],
+        },
+        dateA: {
+          $concat: [
+            { $toString: dayOfMonth },
+            ", ",
+            { $toString: monthString },
+          ],
         },
        },
       },
