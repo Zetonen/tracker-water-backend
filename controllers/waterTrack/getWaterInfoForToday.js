@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import WaterTrack from '../../model/WaterTracker.js';
-import { getDate, getMonth, getYear, format } from 'date-fns';
+import mongoose from "mongoose";
+import WaterTrack from "../../model/WaterTracker.js";
+import { getDate, getMonth, getYear, format } from "date-fns";
 
 const getWaterInfoForToday = async (req, res) => {
   const { _id: owner, dailyNorma } = req.user;
@@ -18,9 +18,9 @@ const getWaterInfoForToday = async (req, res) => {
         owner: new mongoose.Types.ObjectId(owner),
         $expr: {
           $and: [
-            { $eq: [{ $year: { $toDate: '$date' } }, year] },
-            { $eq: [{ $month: { $toDate: '$date' } }, month + 1] },
-            { $eq: [{ $dayOfMonth: { $toDate: '$date' } }, dayOfMonth] },
+            { $eq: [{ $year: { $toDate: "$date" } }, year] },
+            { $eq: [{ $month: { $toDate: "$date" } }, month + 1] },
+            { $eq: [{ $dayOfMonth: { $toDate: "$date" } }, dayOfMonth] },
           ],
         },
       },
@@ -40,13 +40,13 @@ const getWaterInfoForToday = async (req, res) => {
                     $toString: {
                       $round: {
                         $divide: [
-                          { $divide: ['$amountWater', 10] },
+                          { $divide: ["$amountWater", 10] },
                           dailyNorma,
                         ],
                       },
                     },
                   },
-                  '%',
+                  "%",
                 ],
               },
             },
@@ -55,7 +55,7 @@ const getWaterInfoForToday = async (req, res) => {
         dateA: {
           $concat: [
             { $toString: dayOfMonth },
-            ', ',
+            ", ",
             { $toString: monthString },
           ],
         },
