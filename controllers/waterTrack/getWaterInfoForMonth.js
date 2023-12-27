@@ -4,7 +4,7 @@ import { getMonth, getYear, format } from "date-fns";
 
 const getWaterInfoForMonth = async (req, res) => {
  const { _id: owner, dailyNorma } = req.user;
- const { date } = req.body;
+ const { date } = req.query;
  const year = getYear(new Date(date));
  const month = getMonth(new Date(date));
  const monthString = format(new Date(date), "MMMM");

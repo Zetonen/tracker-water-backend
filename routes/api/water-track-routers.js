@@ -3,9 +3,10 @@ import express from "express";
 import {
  authenticate,
  isEmptyBody,
+ isEmptyParams,
  isValidId,
 } from "../../middlewares/index.js";
-import { validateBody } from "../../decorators/index.js";
+import { validateBody, validateParams } from "../../decorators/index.js";
 import waterTrackControllers from "../../controllers/water-track-controllers.js";
 import {
  addWaterSchema,
@@ -41,14 +42,14 @@ waterTrackRouter.delete(
 
 waterTrackRouter.get(
  "/month",
- isEmptyBody,
- validateBody(getWaterInfoForMonthSchema),
+ isEmptyParams,
+ validateParams(getWaterInfoForMonthSchema),
  waterTrackControllers.getWaterInfoForMonth
 );
 waterTrackRouter.get(
  "/today",
- isEmptyBody,
- validateBody(getWaterInfoForMTodaySchema),
+ isEmptyParams,
+ validateParams(getWaterInfoForMTodaySchema),
  waterTrackControllers.getWaterInfoForToday
 );
 
