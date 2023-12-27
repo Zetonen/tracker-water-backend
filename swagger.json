@@ -11,7 +11,7 @@
  },
  "consumes": ["application/json", "multipart/form-data"],
  "produces": ["application/json", "multipart/form-data"],
- "servers": [{ "url": "https://water-track-backend.onrender.com/" }],
+ "servers": [{ "url": "http://localhost:4000/" }],
  "tags": [
   {
    "name": "Auth",
@@ -35,7 +35,7 @@
   }
  ],
  "paths": {
-  "/users/signup": {
+  "/api/users/signup": {
    "post": {
     "tags": ["Auth"],
     "summary": "User registration",
@@ -73,7 +73,7 @@
     }
    }
   },
-  "/users/signin": {
+  "/api/users/signin": {
    "post": {
     "tags": ["Auth"],
     "summary": "User login",
@@ -111,7 +111,7 @@
     }
    }
   },
-  "/users/logout": {
+  "/api/users/logout": {
    "post": {
     "tags": ["Auth"],
     "summary": "User logout",
@@ -135,7 +135,7 @@
     }
    }
   },
-  "/users/getInfo": {
+  "/api/users/getInfo": {
    "get": {
     "tags": ["User"],
     "summary": "User get all info",
@@ -163,7 +163,7 @@
     }
    }
   },
-  "/users/changeInfo": {
+  "/api/users/changeInfo": {
    "patch": {
     "tags": ["User"],
     "summary": "User change info",
@@ -198,7 +198,7 @@
     }
    }
   },
-  "/users/updateAvatar": {
+  "/api/users/updateAvatar": {
    "patch": {
     "tags": ["User"],
     "summary": "User update avatar",
@@ -807,13 +807,13 @@
      }
     ]
    }
-  }
- },
- "securitySchemes": {
-  "Bearer": {
-   "type": "http",
-   "scheme": "bearer",
-   "bearerFormat": "JWT"
+  },
+  "securitySchemes": {
+   "Bearer": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+   }
   }
  }
 }
