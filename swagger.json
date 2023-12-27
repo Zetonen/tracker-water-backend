@@ -73,7 +73,7 @@
     }
    }
   },
-  "/auth/signin": {
+  "/users/signin": {
    "post": {
     "tags": ["Auth"],
     "summary": "User login",
@@ -111,7 +111,7 @@
     }
    }
   },
-  "/auth/logout": {
+  "/users/logout": {
    "post": {
     "tags": ["Auth"],
     "summary": "User logout",
