@@ -11,7 +11,7 @@
  },
  "consumes": ["application/json", "multipart/form-data"],
  "produces": ["application/json", "multipart/form-data"],
- "servers": [{ "url": "https://water-track-backend.onrender.com/" }],
+ "servers": [{ "url": "http://water-track-backend.onrender.com/" }],
  "tags": [
   {
    "name": "Auth",
@@ -358,7 +358,7 @@
    }
   },
   "/api/water-track/month": {
-   "get": {
+   "post": {
     "tags": ["Month"],
     "summary": "Month get info",
     "parameters": [],
@@ -397,10 +397,10 @@
    }
   },
   "/api/water-track/today": {
-   "get": {
+   "post": {
     "tags": ["Today"],
     "summary": "Today get info",
-    "parameters": [{}],
+    "parameters": [],
     "security": [{ "Bearer": [] }],
     "requestBody": {
      "description": "today's object",
@@ -536,7 +536,7 @@
      "date": {
       "type": "string",
       "description": "Water's date",
-      "example": "2023-10"
+      "example": "2023/12"
      }
     }
    },
@@ -546,7 +546,7 @@
      "date": {
       "type": "string",
       "description": "Water's date",
-      "example": "2023/10/11"
+      "example": "2023/12/23"
      }
     }
    },
