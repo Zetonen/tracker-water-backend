@@ -237,7 +237,7 @@
         }
       }
     },
-    "/api/water-track": {
+    "/api/water-track/{waterId}": {
       "post": {
         "tags": ["Water"],
         "summary": "Water add",
@@ -503,9 +503,9 @@
             "example": 500
           },
           "date": {
-            "type": "string",
+            "type": "number",
             "description": "Water's date",
-            "example": "2023/12/25/23:45:12"
+            "example": 1704441797203
           }
         }
       },
@@ -518,9 +518,9 @@
             "example": 500
           },
           "date": {
-            "type": "string",
+            "type": "number",
             "description": "Water's date",
-            "example": "2023/12/25/23:45:12"
+            "example": 1704441797203
           }
         }
       },
