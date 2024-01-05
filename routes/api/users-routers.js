@@ -12,6 +12,7 @@ import {
   changeUserSchema,
   userAvatarsSchema,
   userWaterRateSchema,
+  userForgotPasswordSchema,
 } from "../../schema/user-schema.js";
 
 const usersRouter = express.Router();
@@ -31,6 +32,13 @@ usersRouter.post(
 );
 
 usersRouter.post("/logout", authenticate, usersService.logout);
+
+usersRouter.post(
+  "/forgotPassword",
+  isEmptyBody,
+  validateBody(userForgotPasswordSchema),
+  usersService.forgotPassword
+);
 
 usersRouter.get("/getInfo", authenticate, usersService.getInfo);
 
