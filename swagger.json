@@ -592,13 +592,38 @@
       "RegisterResponse": {
         "type": "object",
         "properties": {
-          "user": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
+          },
+          "users": {
             "type": "object",
             "properties": {
               "email": {
                 "type": "string",
                 "description": "User's email",
                 "format": "email"
+              },
+              "username": {
+                "type": "string",
+                "description": "User's name",
+                "example": ""
+              },
+              "gender": {
+                "type": "string",
+                "description": "User's gender",
+                "example": "male"
+              },
+              "dailyNorma": {
+                "type": "number",
+                "description": "User's daily water norma",
+                "example": 2
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatarURL",
+                "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
               }
             }
           }
@@ -638,7 +663,7 @@
               "username": {
                 "type": "string",
                 "description": "User's name",
-                "example": "V"
+                "example": ""
               },
               "gender": {
                 "type": "string",
@@ -675,7 +700,7 @@
           "username": {
             "type": "string",
             "description": "User's name",
-            "example": "V"
+            "example": ""
           },
           "email": {
             "type": "string",
