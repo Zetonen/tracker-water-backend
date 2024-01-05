@@ -48,3 +48,10 @@ export const userSigninSchema = Joi.object({
     .required()
     .messages({ "any.required": "The password is required!" }),
 });
+
+export const userForgotPasswordSchema = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .required()
+    .messages({ "any.required": "The email is required!" }),
+});

@@ -135,6 +135,40 @@
         }
       }
     },
+    "/api/users/forgotPassword": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User forgot password",
+        "parameters": [],
+        "requestBody": {
+          "description": "forgotPassword's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgotPasswordResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users/getInfo": {
       "get": {
         "tags": ["User"],
@@ -448,6 +482,17 @@
           }
         }
       },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
       "ChangeInfoRequest": {
         "type": "object",
         "properties": {
@@ -554,6 +599,21 @@
                 "type": "string",
                 "description": "User's email",
                 "format": "email"
+              }
+            }
+          }
+        }
+      },
+      "ForgotPasswordResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "User's forgot password",
+                "example": "A letter has been sent to your email: user@example.com"
               }
             }
           }

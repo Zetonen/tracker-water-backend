@@ -5,6 +5,7 @@ export default {
   signup: ctrlWrapper(usersService.signup),
   signin: ctrlWrapper(usersService.signin),
   logout: ctrlWrapper(usersService.logout),
+  forgotPassword: ctrlWrapper(usersService.forgotPassword),
   getInfo: ctrlWrapper(usersService.getInfo),
   changeInfo: ctrlWrapper(usersService.changeInfo),
   updateAvatar: ctrlWrapper(usersService.updateAvatar),
