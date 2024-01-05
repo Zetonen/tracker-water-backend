@@ -8,7 +8,7 @@ const userSchema = new Schema(
   username: {
    type: String,
    maxLength: 32,
-   default: "V",
+   default: "",
   },
   email: {
    type: String,
@@ -41,6 +41,7 @@ const userSchema = new Schema(
   },
   avatarURL: {
    type: String,
+   default: "",
   },
   token: {
    type: String,
