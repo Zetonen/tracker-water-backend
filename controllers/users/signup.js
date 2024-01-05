@@ -12,6 +12,8 @@ const signup = async (req, res) => {
   throw HttpError(409, "Email already exist!");
  }
  const avatarURL = `${defaultAvatarPath}/default_avatar.jpg`;
+ console.log(defaultAvatarPath);
+ console.log(avatarURL);
  const hashedPassword = await bcrypt.hash(password, 10);
  const newUser = await User.create({
   ...req.body,
