@@ -169,6 +169,48 @@
         }
       }
     },
+    "/api/users/updatePassword/{verificationCode}": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User update password",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "verificationCode",
+            "required": true,
+            "type": "string",
+            "description": "Users's verification code"
+          }
+        ],
+        "requestBody": {
+          "description": "updatePassword's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePasswordResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users/getInfo": {
       "get": {
         "tags": ["User"],
@@ -271,7 +313,7 @@
         }
       }
     },
-    "/api/water-track/{waterId}": {
+    "/api/water-track": {
       "post": {
         "tags": ["Water"],
         "summary": "Water add",
@@ -308,7 +350,9 @@
             "content": {}
           }
         }
-      },
+      }
+    },
+    "/api/water-track/{waterId}": {
       "put": {
         "tags": ["Water"],
         "summary": "Water update",
@@ -493,6 +537,17 @@
           }
         }
       },
+      "UpdatePasswordRequest": {
+        "type": "object",
+        "required": ["password"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
       "ChangeInfoRequest": {
         "type": "object",
         "properties": {
@@ -592,13 +647,38 @@
       "RegisterResponse": {
         "type": "object",
         "properties": {
-          "user": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
+          },
+          "users": {
             "type": "object",
             "properties": {
               "email": {
                 "type": "string",
                 "description": "User's email",
                 "format": "email"
+              },
+              "username": {
+                "type": "string",
+                "description": "User's name",
+                "example": ""
+              },
+              "gender": {
+                "type": "string",
+                "description": "User's gender",
+                "example": "male"
+              },
+              "dailyNorma": {
+                "type": "number",
+                "description": "User's daily water norma",
+                "example": 2
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatarURL",
+                "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
               }
             }
           }
@@ -607,13 +687,48 @@
       "ForgotPasswordResponse": {
         "type": "object",
         "properties": {
-          "user": {
+          "message": {
+            "type": "string",
+            "description": "User's forgot password",
+            "example": "A letter has been sent to your email: user@example.com"
+          }
+        }
+      },
+      "UpdatePasswordResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODdmNmRmMDU2OGFkODlhM2IxNWFlNiIsImlhdCI6MTcwMzUwNzcwMCwiZXhwIjoxNzAzNTkwNTAwfQ.WkpmwL_4x10LUZExsUvGLNycIdURE4g1Uw3xJGwcDf0"
+          },
+          "users": {
             "type": "object",
             "properties": {
-              "message": {
+              "email": {
                 "type": "string",
-                "description": "User's forgot password",
-                "example": "A letter has been sent to your email: user@example.com"
+                "description": "User's email",
+                "format": "email"
+              },
+              "username": {
+                "type": "string",
+                "description": "User's name",
+                "example": ""
+              },
+              "gender": {
+                "type": "string",
+                "description": "User's gender",
+                "example": "male"
+              },
+              "dailyNorma": {
+                "type": "number",
+                "description": "User's daily water norma",
+                "example": 2
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "User's avatarURL",
+                "example": "GitHub\tracker-water-backendpublicavatar/default_avatar.jpg"
               }
             }
           }
@@ -638,7 +753,7 @@
               "username": {
                 "type": "string",
                 "description": "User's name",
-                "example": "V"
+                "example": ""
               },
               "gender": {
                 "type": "string",
@@ -675,7 +790,7 @@
           "username": {
             "type": "string",
             "description": "User's name",
-            "example": "V"
+            "example": ""
           },
           "email": {
             "type": "string",
