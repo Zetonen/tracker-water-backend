@@ -313,7 +313,7 @@
         }
       }
     },
-    "/api/water-track/{waterId}": {
+    "/api/water-track": {
       "post": {
         "tags": ["Water"],
         "summary": "Water add",
@@ -350,7 +350,9 @@
             "content": {}
           }
         }
-      },
+      }
+    },
+    "/api/water-track/{waterId}": {
       "put": {
         "tags": ["Water"],
         "summary": "Water update",
