@@ -1,18 +1,27 @@
 import { sendEmail } from "../../helpers/index.js";
+import { nanoid } from "nanoid";
 import User from "../../model/User.js";
 import { HttpError } from "../../helpers/index.js";
+import "dotenv/config";
+
+const { BASE_URL } = process.env;
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  const emailForgotPassword = {
-    to: email,
-    subject: "Forgot password!",
-    html: `<a target="_blank" href="">Change password!</a>`,
-  };
+  const verificationCode = nanoid();
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "User not found");
   }
+  await User.findByIdAndUpdate(user._id, {
+    verify: false,
+    verificationCode,
+  });
+  const emailForgotPassword = {
+    to: email,
+    subject: "Forgot password!",
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationCode}">Change password!</a>`,
+  };
 
   await sendEmail(emailForgotPassword);
 
