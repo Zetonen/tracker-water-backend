@@ -40,6 +40,12 @@ usersRouter.post(
   usersService.forgotPassword
 );
 
+usersRouter.get("/verify/:verificationCode", usersService.verify);
+usersRouter.post(
+  "/updatePassword/:verificationCode",
+  usersService.updatePassword
+);
+
 usersRouter.get("/getInfo", authenticate, usersService.getInfo);
 
 usersRouter.patch(

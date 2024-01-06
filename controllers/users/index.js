@@ -2,6 +2,8 @@ export { default as signup } from "./signup.js";
 export { default as signin } from "./signin.js";
 export { default as logout } from "./logout.js";
 export { default as forgotPassword } from "./forgotPassword.js";
+export { default as updatePassword } from "./updatePassword.js";
+export { default as verify } from "./verify.js";
 export { default as getInfo } from "./getInfo.js";
 export { default as changeInfo } from "./changeInfo.js";
 export { default as updateAvatar } from "./updateAvatar.js";
