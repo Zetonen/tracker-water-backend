@@ -3,7 +3,7 @@ import Joi from "joi";
 export const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 export const changeUserSchema = Joi.object({
-  username: Joi.string().max(32),
+  username: Joi.string().allow('').max(32),
   email: Joi.string().pattern(emailRegexp),
   password: Joi.string().min(8).max(48),
   oldPassword: Joi.string().min(8).max(48),
