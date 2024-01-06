@@ -5,7 +5,8 @@ import { HttpError } from "../../helpers/index.js";
 const changeInfo = async (req, res) => {
   let result = null;
   const { _id } = req.user;
-  const { oldPassword, password } = req.body;
+  const { oldPassword, password, ...updatedFields } = req.body;
+  const originalUser = await User.findById(_id);
   if (!oldPassword && !password) {
     result = await User.findByIdAndUpdate(_id, req.body, {
       new: true,
@@ -29,15 +30,23 @@ const changeInfo = async (req, res) => {
         runValidators: true,
       }
     );
+    Object.keys(updatedFields).forEach(field => {
+      if (result[field] !== originalUser[field]) {
+        updatedFields[field] = result[field];
+      }
+    });
+    res.json({
+      message: "Password was updated!",
+      ...updatedFields,
+    });
+    return;
   }
-  const responseObj = {
-    username: result.username,
-    email: result.email,
-    password: result.password,
-    gender: result.gender,
-    dailyNorma: result.dailyNorma,
-  };
-  res.json(responseObj);
+  Object.keys(updatedFields).forEach(field => {
+    if (result[field] !== originalUser[field]) {
+      updatedFields[field] = result[field];
+    }
+  });
+  res.json(updatedFields);
 };
 
 export default changeInfo;

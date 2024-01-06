@@ -274,6 +274,41 @@
         }
       }
     },
+    "/api/users/changeDailyNorma": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User change daily norma",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "changeDailyNorma's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeDailyNormaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeDailyNormaResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users/updateAvatar": {
       "patch": {
         "tags": ["User"],
@@ -445,7 +480,8 @@
             "name": "date",
             "required": true,
             "type": "string",
-            "description": "Water's date"
+            "example": "2023-12",
+            "description": "Water's date YYYY-MM"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -480,8 +516,8 @@
             "in": "query",
             "name": "date",
             "required": true,
-            "type": "string",
-            "description": "Water's date"
+            "example": "2023-12-23",
+            "description": "Water's date YYYY-MM-DD"
           }
         ],
         "security": [{ "Bearer": [] }],
@@ -575,7 +611,12 @@
             "type": "string",
             "description": "User's gender",
             "example": "female"
-          },
+          }
+        }
+      },
+      "ChangeDailyNormaRequest": {
+        "type": "object",
+        "properties": {
           "dailyNorma": {
             "type": "number",
             "description": "User's daily water norma",
@@ -827,16 +868,16 @@
             "description": "User's email",
             "format": "email"
           },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "$2a$10$oMRe2.Vxu3MUb1fTN/tCX.m4Q7G1B7AGU/ETwRasTBLHgJrTGPCyi"
-          },
           "gender": {
             "type": "string",
             "description": "User's gender",
             "example": "female"
-          },
+          }
+        }
+      },
+      "ChangeDailyNormaResponse": {
+        "type": "object",
+        "properties": {
           "dailyNorma": {
             "type": "number",
             "description": "User's daily water norma",
