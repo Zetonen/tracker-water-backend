@@ -10,6 +10,7 @@ export default {
   verify: ctrlWrapper(usersService.verify),
   getInfo: ctrlWrapper(usersService.getInfo),
   changeInfo: ctrlWrapper(usersService.changeInfo),
+  changeDailyNorma: ctrlWrapper(usersService.changeDailyNorma),
   updateAvatar: ctrlWrapper(usersService.updateAvatar),
   updateWaterRate: ctrlWrapper(usersService.updateWaterRate),
 };

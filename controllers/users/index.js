@@ -6,5 +6,6 @@ export { default as updatePassword } from "./updatePassword.js";
 export { default as verify } from "./verify.js";
 export { default as getInfo } from "./getInfo.js";
 export { default as changeInfo } from "./changeInfo.js";
+export { default as changeDailyNorma } from "./changeDailyNorma.js";
 export { default as updateAvatar } from "./updateAvatar.js";
 export { default as updateWaterRate } from "./updateWaterRate.js";

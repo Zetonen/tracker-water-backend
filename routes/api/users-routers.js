@@ -57,6 +57,14 @@ usersRouter.patch(
 );
 
 usersRouter.patch(
+  "/changeDailyNorma",
+  authenticate,
+  isEmptyBody,
+  validateBody(userWaterRateSchema),
+  usersService.changeDailyNorma
+);
+
+usersRouter.patch(
   "/updateAvatar",
   authenticate,
   uploadAvatar.single("avatar"),
