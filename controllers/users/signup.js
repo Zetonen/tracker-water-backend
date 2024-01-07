@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../../model/User.js";
-import { HttpError } from "../../helpers/index.js";
+import { HttpError, transformCreateAt } from "../../helpers/index.js";
 import "dotenv/config";
 
 const { JWT_SECRET } = process.env;
@@ -17,7 +17,9 @@ const signup = async (req, res) => {
     ...req.body,
     password: hashedPassword,
   });
-  const { _id, username, gender, dailyNorma, avatarURL } = newUser;
+  const { _id, username, gender, dailyNorma, avatarURL, createdAt } = newUser;
+  const validCreateAt = transformCreateAt(createdAt);
+
   const payload = {
     id: _id,
   };
@@ -31,6 +33,7 @@ const signup = async (req, res) => {
       gender,
       dailyNorma,
       avatarURL,
+      createdAt: validCreateAt,
     },
   });
 };
