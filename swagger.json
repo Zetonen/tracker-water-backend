@@ -878,10 +878,25 @@
       "ChangeDailyNormaResponse": {
         "type": "object",
         "properties": {
-          "dailyNorma": {
-            "type": "number",
-            "description": "User's daily water norma",
-            "example": 5
+          "users": {
+            "type": "object",
+            "properties": {
+              "dailyNorma": {
+                "type": "number",
+                "description": "User's daily water norma",
+                "example": 5
+              }
+            }
+          },
+          "today": {
+            "type": "object",
+            "properties": {
+              "percentageWaterConsumed": {
+                "type": "string",
+                "description": "User's today percentage water consumed",
+                "example": "100%"
+              }
+            }
           }
         }
       },
@@ -1014,16 +1029,19 @@
             }
           }
         },
-        "example": [
-          {
-            "date": "2023/10/11/14:30",
-            "waterAmount": 500
-          },
-          {
-            "date": "2023/10/11/15:30",
-            "waterAmount": 500
-          }
-        ]
+        "example": {
+          "percentageDailyNorm": "70%",
+          "waterTracks": [
+            {
+              "date": "2023/10/11/14:30",
+              "waterAmount": 500
+            },
+            {
+              "date": "2023/10/11/15:30",
+              "waterAmount": 500
+            }
+          ]
+        }
       }
     },
     "securitySchemes": {
