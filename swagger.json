@@ -897,6 +897,48 @@
                 "example": "100%"
               }
             }
+          },
+          "month": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "Month's date",
+                  "example": "5, April"
+                },
+                "dailyNorma": {
+                  "type": "string",
+                  "description": "Month's daily norma",
+                  "example": "5"
+                },
+                "PercentageWaterConsumed": {
+                  "type": "string",
+                  "description": "Month's percentage water consumed",
+                  "example": "20%"
+                },
+                "quantityWaterTrack": {
+                  "type": "integer",
+                  "description": "Month's quantity water track",
+                  "example": 2
+                }
+              }
+            },
+            "example": [
+              {
+                "date": "5, April",
+                "dailyNorma": "2",
+                "PercentageWaterConsumed": "70%",
+                "quantityWaterTrack": 3
+              },
+              {
+                "date": "6, April",
+                "dailyNorma": "2",
+                "PercentageWaterConsumed": "75%",
+                "quantityWaterTrack": 4
+              }
+            ]
           }
         }
       },
