@@ -1,20 +1,31 @@
-import dateFormat from "../../helpers/dateFormat.js";
+import {
+  dateFormat,
+  aggregateWaterData,
+  HttpError,
+} from "../../helpers/index.js";
 import WaterTrack from "../../model/WaterTracker.js";
 
 const updateWaterById = async (req, res) => {
   const { waterId } = req.params;
-  const { _id: owner } = req.user;
+  const { _id: owner, dailyNorma } = req.user;
   const waterTrack = { ...req.body };
+
   if (waterTrack.date) {
     waterTrack.date = dateFormat(waterTrack.date);
   }
-  const result = await WaterTrack.findOneAndUpdate(
+  const updateWater = await WaterTrack.findOneAndUpdate(
     { _id: waterId, owner },
-    waterTrack
+    waterTrack,
+    { new: true }
   );
-  if (!result) {
+  if (!updateWater) {
     throw HttpError(404, `Water track with id = ${waterId} is not found`);
   }
-  res.json(result);
+
+  const { date } = updateWater;
+  const result = await aggregateWaterData(owner, date, dailyNorma);
+
+  res.json({ updateWater, today: result });
 };
+
 export default updateWaterById;
