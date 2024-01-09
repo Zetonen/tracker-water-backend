@@ -5,4 +5,3 @@ export { default as dateFormat } from "./dateFormat.js";
 export { default as cloudinary } from "./cloudinary.js";
 export { default as transformCreateAt } from "./transformCreateAt.js";
 export { default as aggregateWaterData } from "./aggregateWaterData.js";
-export { default as calculatePercentageWaterConsumed } from "./calculatePercentage.js";

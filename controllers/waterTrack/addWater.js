@@ -14,7 +14,7 @@ const addWater = async (req, res) => {
 
   const result = await aggregateWaterData(owner, date, dailyNorma);
 
-  res.json({ addedWaterPortion, result });
+  res.json({ addedWaterPortion, today: result });
 };
 
 export default addWater;

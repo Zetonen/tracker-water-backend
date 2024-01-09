@@ -20,7 +20,7 @@ const deleteWaterById = async (req, res) => {
 
   const response = {
     message: "Water track deleted",
-    result,
+    today: result,
   };
 
   res.json(response);

@@ -25,7 +25,7 @@ const updateWaterById = async (req, res) => {
   const { date } = updateWater;
   const result = await aggregateWaterData(owner, date, dailyNorma);
 
-  res.json({ updateWater, result });
+  res.json({ updateWater, today: result });
 };
 
 export default updateWaterById;
