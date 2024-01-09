@@ -10,7 +10,7 @@ const updatePassword = async (req, res) => {
   const { verificationCode } = req.params;
   const { password } = req.body;
   const user = await User.findOne({ verificationCode });
-  if (!user || !user.verify) {
+  if (!user) {
     throw HttpError(401, "User not found");
   }
   const { _id, username, email, gender, dailyNorma, avatarURL } = user;

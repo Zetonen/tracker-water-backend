@@ -14,7 +14,6 @@ const forgotPassword = async (req, res) => {
     throw HttpError(401, "User not found");
   }
   await User.findByIdAndUpdate(user._id, {
-    verify: false,
     verificationCode,
   });
   const emailForgotPassword = {
