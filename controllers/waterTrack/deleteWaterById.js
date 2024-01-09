@@ -1,8 +1,4 @@
-import {
-  HttpError,
-  aggregateWaterData,
-  calculatePercentageWaterConsumed,
-} from "../../helpers/index.js";
+import { HttpError, aggregateWaterData } from "../../helpers/index.js";
 import WaterTrack from "../../model/WaterTracker.js";
 
 const deleteWaterById = async (req, res) => {
@@ -19,23 +15,12 @@ const deleteWaterById = async (req, res) => {
   }
 
   const { date } = deletedWaterTrack;
-  const dateObject = new Date(date);
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth();
-  const dayOfMonth = dateObject.getDate();
 
-  const result = await aggregateWaterData(owner, year, month, dayOfMonth);
-
-  const totalAmountWater = result[0]?.totalWater?.[0]?.totalAmountWater || 0;
-
-  const percentageWaterConsumed =
-    totalAmountWater !== undefined
-      ? calculatePercentageWaterConsumed(totalAmountWater, dailyNorma)
-      : "N/A";
+  const result = await aggregateWaterData(owner, date, dailyNorma);
 
   const response = {
     message: "Water track deleted",
-    percentageWaterConsumed,
+    result,
   };
 
   res.json(response);

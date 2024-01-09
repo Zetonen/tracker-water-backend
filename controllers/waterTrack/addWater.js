@@ -1,8 +1,4 @@
-import {
-  dateFormat,
-  aggregateWaterData,
-  calculatePercentageWaterConsumed,
-} from "../../helpers/index.js";
+import { dateFormat, aggregateWaterData } from "../../helpers/index.js";
 import WaterTrack from "../../model/WaterTracker.js";
 
 const addWater = async (req, res) => {
@@ -16,22 +12,9 @@ const addWater = async (req, res) => {
     amountWater,
   });
 
-  const originalDate = new Date();
-  const year = originalDate.getFullYear();
-  const month = originalDate.getMonth();
-  const dayOfMonth = originalDate.getDate();
+  const result = await aggregateWaterData(owner, date, dailyNorma);
 
-  const result = await aggregateWaterData(owner, year, month, dayOfMonth);
-  const totalAmountWater = result[0]?.totalWater?.[0]?.totalAmountWater || 0;
-  const percentageWaterConsumed =
-    totalAmountWater !== undefined
-      ? calculatePercentageWaterConsumed(totalAmountWater, dailyNorma)
-      : "N/A";
-  const dayPercent = {
-    percentageWaterConsumed,
-  };
-
-  res.json({ addedWaterPortion, dayPercent });
+  res.json({ addedWaterPortion, result });
 };
 
 export default addWater;

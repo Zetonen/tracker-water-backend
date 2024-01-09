@@ -1,7 +1,17 @@
 import mongoose from "mongoose";
 import WaterTrack from "../model/WaterTracker.js";
 
-const aggregateWaterData = async (owner, year, month, dayOfMonth) => {
+const aggregateWaterData = async (owner, date, dailyNorma) => {
+  const calculatePercentageWaterConsumed = (totalAmountWater, dailyNorma) => {
+    const percentage = Math.round(totalAmountWater / (dailyNorma * 10));
+    return `${percentage}%`;
+  };
+
+  const originalDate = new Date(date);
+  const year = originalDate.getFullYear();
+  const month = originalDate.getMonth();
+  const dayOfMonth = originalDate.getDate();
+
   const result = await WaterTrack.aggregate([
     {
       $match: {
@@ -47,7 +57,18 @@ const aggregateWaterData = async (owner, year, month, dayOfMonth) => {
     },
   ]);
 
-  return result;
+  const totalAmountWater = result[0]?.totalWater?.[0]?.totalAmountWater || 0;
+
+  const percentageWaterConsumed =
+    totalAmountWater !== undefined
+      ? calculatePercentageWaterConsumed(totalAmountWater, dailyNorma)
+      : "N/A";
+
+  const response = {
+    percentageWaterConsumed,
+  };
+
+  return response;
 };
 
 export default aggregateWaterData;
