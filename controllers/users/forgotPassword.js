@@ -19,7 +19,7 @@ const forgotPassword = async (req, res) => {
   const emailForgotPassword = {
     to: email,
     subject: "Forgot password!",
-    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationCode}">Change password!</a>`,
+    html: `<a target="_blank" href="http://localhost:5173/water-tracker/update-password/${verificationCode}">Change password!</a>`,
   };
 
   await sendEmail(emailForgotPassword);
