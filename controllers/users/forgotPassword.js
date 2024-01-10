@@ -19,7 +19,12 @@ const forgotPassword = async (req, res) => {
   const emailForgotPassword = {
     to: email,
     subject: "Forgot password!",
-    html: `<a target="_blank" href="https://ohwellnevermind.github.io/water-tracker/update-password/${verificationCode}">Change password!</a>`,
+    html: `<p>Hello,</p>
+    <p>We received a request to change your password. Click the link below to set a new password:</p>
+    <p><a target="_blank" href="https://ohwellnevermind.github.io/water-tracker/update-password/${verificationCode}">Change password!</a></p>
+    <p>If you did not make this request, you can ignore this email.</p>
+    <p>Best regards,<br>IdeaSoft</p>
+    <img src="https://res.cloudinary.com/dkftturzq/image/upload/v1704909023/Frame_81_p1q4ny.png" alt="Security Image" width="50" style="display:block; margin: 10px 0;">`,
   };
 
   await sendEmail(emailForgotPassword);
