@@ -44,9 +44,8 @@ const changeDailyNorma = async (req, res) => {
     }, [])
     .map(record => {
       const percentageWaterConsumed =
-        ((record.totalAmountWater / 1000 / record.dailyNorma) * 100).toFixed(
-          2
-        ) + "%";
+        Math.round((record.totalAmountWater / 1000 / record.dailyNorma) * 100) +
+        "%";
 
       return {
         date: record.date,
@@ -57,10 +56,9 @@ const changeDailyNorma = async (req, res) => {
     });
   const todayWaterAmount =
     todayWaterTracks.reduce((acc, item) => item.amountWater + acc, 0) / 1000;
-  const percentageWaterConsumed = (
-    (todayWaterAmount / dailyNorma) *
-    100
-  ).toFixed(2);
+  const percentageWaterConsumed = Math.round(
+    (todayWaterAmount / dailyNorma) * 100
+  );
   const result = await User.findByIdAndUpdate(
     _id,
     { dailyNorma },
