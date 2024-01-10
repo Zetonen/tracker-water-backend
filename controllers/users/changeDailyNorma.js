@@ -29,7 +29,6 @@ const changeDailyNorma = async (req, res) => {
       const existingRecord = acc.find(
         item => item.date === formatDate(record.date)
       );
-
       if (existingRecord) {
         existingRecord.quantityWaterTrack += 1;
         existingRecord.totalAmountWater += record.amountWater;
@@ -86,7 +85,7 @@ const changeDailyNorma = async (req, res) => {
     const options = { day: "numeric", month: "long" };
     const formattedDate = date.toLocaleDateString("en-US", options);
     const [day, month] = formattedDate.split(" ");
-    return `${day}, ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+    return `${month.charAt(0).toUpperCase() + month.slice(1)}, ${day}`;
   }
 };
 
