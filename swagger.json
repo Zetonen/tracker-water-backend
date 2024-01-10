@@ -955,20 +955,40 @@
       "AddWaterResponse": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "string",
-            "description": "Water's data",
-            "example": "2023/12/22/07:30:12"
+          "addedWaterPortion": {
+            "type": "object",
+            "properties": {
+              "amountWater": {
+                "type": "number",
+                "description": "Water's amount",
+                "example": 500
+              },
+              "data": {
+                "type": "string",
+                "description": "Water's data",
+                "example": "2024-01-05T12:03:17"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Water's owner",
+                "example": "658604d78e9ae265dbf6a3ac"
+              },
+              "_id": {
+                "type": "string",
+                "description": "Water's id",
+                "example": "659e80898d8f007f26da900f"
+              }
+            }
           },
-          "owner": {
-            "type": "string",
-            "description": "Water's owner",
-            "example": "658604d78e9ae265dbf6a3ac"
-          },
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
+          "today": {
+            "type": "object",
+            "properties": {
+              "percentageWaterConsumed": {
+                "type": "string",
+                "description": "Water's today percentage",
+                "example": "226%"
+              }
+            }
           }
         }
       },
@@ -979,26 +999,51 @@
             "type": "string",
             "description": "Water's deleted",
             "example": "Water track deleted"
+          },
+          "today": {
+            "type": "string",
+            "description": "Water's today percentage",
+            "example": "206%"
           }
         }
       },
       "UpdateWaterResponse": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "string",
-            "description": "Water's data",
-            "example": "2023/12/25/23:45:12"
+          "updateWater": {
+            "type": "object",
+            "properties": {
+              "amountWater": {
+                "type": "number",
+                "description": "Water's amount",
+                "example": 500
+              },
+              "data": {
+                "type": "string",
+                "description": "Water's data",
+                "example": "2024-01-05T12:03:17"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Water's owner",
+                "example": "658604d78e9ae265dbf6a3ac"
+              },
+              "_id": {
+                "type": "string",
+                "description": "Water's id",
+                "example": "659e80898d8f007f26da900f"
+              }
+            }
           },
-          "owner": {
-            "type": "string",
-            "description": "Water's owner",
-            "example": "658604d78e9ae265dbf6a3ac"
-          },
-          "amountWater": {
-            "type": "number",
-            "description": "Water's amount",
-            "example": 500
+          "today": {
+            "type": "object",
+            "properties": {
+              "percentageWaterConsumed": {
+                "type": "string",
+                "description": "Water's today percentage",
+                "example": "226%"
+              }
+            }
           }
         }
       },
